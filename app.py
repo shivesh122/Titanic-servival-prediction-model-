@@ -97,7 +97,7 @@ if uploaded_file is not None:
         st.dataframe(df.head(20))
         st.download_button("Download Predictions CSV", df.to_csv(index=False).encode('utf-8'), "predictions.csv")
     except Exception as e:
-        st.error(f\"Error while predicting: {e}\")
+        st.error(f"Error while predicting: {e}")
 
 st.markdown("---")
 
