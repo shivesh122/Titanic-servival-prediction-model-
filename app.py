@@ -74,7 +74,7 @@ st.subheader("📄 Batch CSV Prediction")
 with st.expander("CSV Template & Notes", expanded=False):
     template = StringIO()
     template.write("PassengerId,Pclass,Name,Sex,Age,SibSp,Parch,Ticket,Fare,Cabin,Embarked\n")
-    template.write("1,3,"Braund, Mr. Owen Harris",male,22,1,0,A/5 21171,7.25,,S\n")
+    template.write('1,3,"Braund, Mr. Owen Harris",male,22,1,0,A/5 21171,7.25,,S\n')
     template.seek(0)
     st.download_button("Download CSV Template", data=template.getvalue().encode('utf-8'), file_name="titanic_template.csv")
     st.caption("Upload a CSV with headers like the Kaggle Titanic dataset.")
