@@ -9,14 +9,9 @@ st.set_page_config(page_title="Titanic Survival Prediction", page_icon="🚢", l
 
 # Load model
 MODEL_PATH = "titanic_best_model.pkl"
-
-@st.cache_resource
-def load_model():
-    if not os.path.exists(MODEL_PATH):
-        return None
-    return joblib.load(MODEL_PATH)
-    class SimpleTitanicModel:
+class SimpleTitanicModel:
     """A tiny heuristic model with scikit-learn-like API."""
+
     def __init__(self):
         pass
 
@@ -28,10 +23,12 @@ def load_model():
         pclass = pd.to_numeric(X['Pclass'], errors='coerce').fillna(3)
         farepp = pd.to_numeric(X['FarePerPerson'], errors='coerce').fillna(0.0)
         alone = pd.to_numeric(X['IsAlone'], errors='coerce').fillna(1)
+
         s += (sex == 'female') * 0.5
         s += (pclass == 1).astype(float) * 0.15
         s += (farepp > 20).astype(float) * 0.1
         s -= ((alone == 1) & (sex == 'male')).astype(float) * 0.15
+
         return np.clip(s, 0.01, 0.99)
 
     def predict_proba(self, X):
