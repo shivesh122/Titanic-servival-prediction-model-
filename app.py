@@ -7,8 +7,6 @@ from io import StringIO
 
 st.set_page_config(page_title="Titanic Survival Prediction", page_icon="🚢", layout="centered")
 
-# Load model
-MODEL_PATH = "titanic_best_model.pkl"
 class SimpleTitanicModel:
     """A tiny heuristic model with scikit-learn-like API."""
 
@@ -40,6 +38,11 @@ class SimpleTitanicModel:
     def predict(self, X):
         return (self._score(X) >= 0.5).astype(int)
         
+def load_model():
+    MODEL_PATH = "models/titanic_best_model.pkl"
+    if not os.path.exists(MODEL_PATH):
+        return None
+    return joblib.load(MODEL_PATH)
 
 model = load_model()
 
