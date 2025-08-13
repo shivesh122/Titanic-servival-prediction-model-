@@ -15,6 +15,34 @@ def load_model():
     if not os.path.exists(MODEL_PATH):
         return None
     return joblib.load(MODEL_PATH)
+    class SimpleTitanicModel:
+    """A tiny heuristic model with scikit-learn-like API."""
+    def __init__(self):
+        pass
+
+    def _score(self, X):
+        import numpy as np
+        import pandas as pd
+        s = np.full(len(X), 0.2, dtype=float)
+        sex = X['Sex'].astype(str).str.lower().fillna('male')
+        pclass = pd.to_numeric(X['Pclass'], errors='coerce').fillna(3)
+        farepp = pd.to_numeric(X['FarePerPerson'], errors='coerce').fillna(0.0)
+        alone = pd.to_numeric(X['IsAlone'], errors='coerce').fillna(1)
+        s += (sex == 'female') * 0.5
+        s += (pclass == 1).astype(float) * 0.15
+        s += (farepp > 20).astype(float) * 0.1
+        s -= ((alone == 1) & (sex == 'male')).astype(float) * 0.15
+        return np.clip(s, 0.01, 0.99)
+
+    def predict_proba(self, X):
+        p1 = self._score(X)
+        p0 = 1 - p1
+        import numpy as np
+        return np.vstack([p0, p1]).T
+
+    def predict(self, X):
+        return (self._score(X) >= 0.5).astype(int)
+        
 
 model = load_model()
 
