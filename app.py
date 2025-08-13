@@ -39,7 +39,7 @@ class SimpleTitanicModel:
         return (self._score(X) >= 0.5).astype(int)
         
 def load_model():
-    MODEL_PATH = "models/titanic_best_model.pkl"
+    MODEL_PATH = "titanic_best_model.pkl"
     if not os.path.exists(MODEL_PATH):
         return None
     return joblib.load(MODEL_PATH)
