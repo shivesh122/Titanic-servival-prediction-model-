@@ -8,7 +8,7 @@ from io import StringIO
 st.set_page_config(page_title="Titanic Survival Prediction", page_icon="🚢", layout="centered")
 
 # Load model
-MODEL_PATH = "models/titanic_best_model.pkl"
+MODEL_PATH = "titanic_best_model.pkl"
 
 @st.cache_resource
 def load_model():
